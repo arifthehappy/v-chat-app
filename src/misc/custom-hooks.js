@@ -1,5 +1,6 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 
+// Custom hook to manage modal state
 export function useModalState(defaultValue = false) {
   const [isOpen, setIsOpen] = useState(defaultValue);
 
@@ -8,3 +9,22 @@ export function useModalState(defaultValue = false) {
 
   return { isOpen, open, close };
 }
+
+// Custom hook to make responsive grid
+export const useMediaQuery = query => {
+  const [matches, setMatches] = useState(
+    () => window.matchMedia(query).matches
+  );
+
+  useEffect(() => {
+    const queryList = window.matchMedia(query);
+    setMatches(queryList.matches);
+
+    const listener = evt => setMatches(evt.matches);
+
+    queryList.addListener(listener);
+    return () => queryList.removeListener(listener);
+  }, [query]);
+
+  return matches;
+};
