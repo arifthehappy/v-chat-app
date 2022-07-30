@@ -63,7 +63,7 @@ const ProviderBlock = () => {
   return (
     <div>
       {isConnected['google.com'] && (
-        <Tag color="red" closable onClose={unlinkGoogle}>
+        <Tag color="green" closable onClose={unlinkGoogle}>
           <Icon icon="google" className="mr-1" />
           Connected
         </Tag>
@@ -78,7 +78,7 @@ const ProviderBlock = () => {
 
       <div className="mt-2">
         {!isConnected['google.com'] && (
-          <Button block color="red" onClick={linkGoogle}>
+          <Button block color="green" onClick={linkGoogle}>
             <Icon icon="google" className="mr-1" />
             Link to Google
           </Button>
