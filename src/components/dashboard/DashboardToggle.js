@@ -20,7 +20,7 @@ const DashboardToggle = () => {
   return (
     <>
       <Button block color="blue" onClick={open}>
-        <Icon icon="dashboard" />
+        <Icon icon="dashboard" className="mr-1" />
         Dashboard
       </Button>
       <Drawer full={!isDesktop} show={isOpen} onHide={close} placement="left">

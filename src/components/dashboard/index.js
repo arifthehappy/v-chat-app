@@ -26,13 +26,13 @@ const Dashboard = ({ onSignOut }) => {
         <h3>Hey, {profile.name}</h3>
         <ProviderBlock />
         <Divider />
+        <AvatarUploadBtn />
         <EditableInput
           name="username"
           initialValue={profile.name}
           onSave={onSave}
           label={<h6 className="mb-2">username</h6>}
         />
-        <AvatarUploadBtn />
       </Drawer.Body>
       <Drawer.Footer>
         <Button block color="red" onClick={onSignOut}>
