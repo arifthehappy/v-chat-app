@@ -1,7 +1,7 @@
 import React from 'react';
 
-const bottom = () => {
+const Bottom = () => {
   return <div>bottom</div>;
 };
 
-export default bottom;
+export default Bottom;
