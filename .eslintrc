@@ -31,6 +31,8 @@
     "react/function-component-definition": "off",
     "no-unused-vars": "off",
     "import/no-extraneous-dependencies": "off",
-    "react/jsx-no-constructed-context-values": "off"
+    "react/jsx-no-constructed-context-values": "off",
+    "no-unused-expressions": "off",
+    "no-unsafe-optional-chaining": "off"
   }
 }
