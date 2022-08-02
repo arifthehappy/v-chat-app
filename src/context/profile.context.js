@@ -39,7 +39,6 @@ export const ProfileProvider = ({ children }) => {
           setProfile(data);
           setIsLoading(false);
         });
-
         // realtime presence
         database.ref('.info/connected').on('value', snapshot => {
           // If we're not currently connected, don't do anything.

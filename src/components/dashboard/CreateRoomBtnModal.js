@@ -45,6 +45,9 @@ const CreateRoomBtnModal = () => {
         ...formValue,
         createdBy: profile.uid,
         createdAt: firebase.database.ServerValue.TIMESTAMP,
+        admins: {
+          [profile.uid]: true,
+        },
       };
 
       try {
