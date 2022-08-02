@@ -7,6 +7,7 @@ const EditableInput = ({
   label = null,
   placeholder = 'write something here...',
   emptyMsg = 'Input is empty',
+  wrapperClassName = '',
   ...inputProps
 }) => {
   const [input, setInput] = useState(initialValue);
@@ -34,8 +35,15 @@ const EditableInput = ({
     setIsEditable(false);
   };
 
+  const onKeyDown = ev => {
+    if (ev.keyCode === 13) {
+      ev.preventDefault();
+      onSaveClick();
+    }
+  };
+
   return (
-    <div>
+    <div className={wrapperClassName}>
       {label}
       <InputGroup>
         <Input
@@ -44,6 +52,7 @@ const EditableInput = ({
           placeholder={placeholder}
           value={input}
           onChange={onInputChange}
+          onKeyDown={onKeyDown}
         />
         <InputGroup.Button onClick={onEditClick}>
           <Icon icon={isEditable ? 'close' : 'edit2'} />
