@@ -31,6 +31,7 @@ const Dashboard = ({ onSignOut }) => {
       <Drawer.Header>
         <Drawer.Title>Dashboard</Drawer.Title>
       </Drawer.Header>
+
       <Drawer.Body>
         <h3>Hey, {profile.name}</h3>
         <ProviderBlock />
@@ -43,6 +44,7 @@ const Dashboard = ({ onSignOut }) => {
           label={<h6 className="mb-2">username</h6>}
         />
       </Drawer.Body>
+
       <Drawer.Footer>
         <Button block color="red" onClick={onSignOut}>
           Sign Out
