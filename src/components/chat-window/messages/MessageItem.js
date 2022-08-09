@@ -80,10 +80,10 @@ const MessageItem = ({ message, handleAdmin, handleLike, handleDelete }) => {
           )}
         </ProfileInfoBtnModal>
 
-        <TimeAgo
-          datetime={createdAt}
-          className="font-normal text-black-45 ml-2"
-        />
+        <span className="font-normal text-black-45 ml-2">
+          {new Date(createdAt).toLocaleTimeString()}
+        </span>
+
         <IconBtnControl
           {...(isLiked ? { color: 'red' } : {})}
           isVisible={canShowIcons}
