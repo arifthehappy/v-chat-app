@@ -10,7 +10,7 @@ const AttachmentBtnModal = ({ afterUpload }) => {
   const { isOpen, close, open } = useModalState();
   const [isLoading, setIsLoading] = useState(false);
 
-  const chatId = useParams();
+  const { chatId } = useParams();
 
   const [fileList, setFileList] = useState([]);
 
@@ -23,8 +23,8 @@ const AttachmentBtnModal = ({ afterUpload }) => {
   };
 
   const onUpload = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       const uploadPromises = fileList.map(f => {
         return storage
           .ref(`/chat/${chatId}`)
@@ -47,7 +47,7 @@ const AttachmentBtnModal = ({ afterUpload }) => {
       const files = await Promise.all(shapePromises);
 
       await afterUpload(files);
-
+      setFileList([]);
       setIsLoading(false);
       close();
     } catch (error) {
