@@ -12,7 +12,7 @@ import {
 } from 'rsuite';
 import firebase from 'firebase/app';
 import { useModalState } from '../../misc/custom-hooks';
-import { database } from '../../misc/firebase';
+import { auth, database } from '../../misc/firebase';
 import { useProfile } from '../../context/profile.context';
 
 const { StringType } = Schema.Types;
@@ -47,6 +47,9 @@ const CreateRoomBtnModal = () => {
         createdAt: firebase.database.ServerValue.TIMESTAMP,
         admins: {
           [profile.uid]: true,
+        },
+        fcmUsers: {
+          [auth.currentUser.uid]: true,
         },
       };
 

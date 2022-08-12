@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import firebase from 'firebase/app';
-import { auth, database } from '../misc/firebase';
+import { auth, database, messaging } from '../misc/firebase';
 
 export const isOfflineForDatabase = {
   state: 'offline',
@@ -21,8 +21,9 @@ export const ProfileProvider = ({ children }) => {
   useEffect(() => {
     let userRef;
     let userStatusRef;
+    let tokenRefreshUnsub;
 
-    const authUnsub = auth.onAuthStateChanged(authObj => {
+    const authUnsub = auth.onAuthStateChanged(async authObj => {
       if (authObj) {
         userRef = database.ref(`/profiles/${authObj.uid}`);
         userStatusRef = database.ref(`/status/${authObj.uid}`);
@@ -53,6 +54,32 @@ export const ProfileProvider = ({ children }) => {
               userStatusRef.set(isOnlineForDatabase);
             });
         });
+
+        if (messaging) {
+          try {
+            const currentToken = await messaging.getToken();
+            if (currentToken) {
+              await database
+                .ref(`/fcm_tokens/${currentToken}`)
+                .set(authObj.uid);
+            }
+          } catch (error) {
+            console.log(error);
+          }
+
+          tokenRefreshUnsub = messaging.onTokenRefresh(async () => {
+            try {
+              const currentToken = await messaging.getToken();
+              if (currentToken) {
+                await database
+                  .ref(`/fcm_tokens/${currentToken}`)
+                  .set(authObj.uid);
+              }
+            } catch (error) {
+              console.log(error);
+            }
+          });
+        }
       } else {
         database.ref('.info/connected').off();
 
@@ -62,6 +89,10 @@ export const ProfileProvider = ({ children }) => {
 
         if (userStatusRef) {
           userStatusRef.off();
+        }
+
+        if (tokenRefreshUnsub) {
+          tokenRefreshUnsub();
         }
 
         setProfile(null);
@@ -78,6 +109,10 @@ export const ProfileProvider = ({ children }) => {
 
       if (userStatusRef) {
         userStatusRef.off();
+      }
+
+      if (tokenRefreshUnsub) {
+        tokenRefreshUnsub();
       }
     };
   }, []);

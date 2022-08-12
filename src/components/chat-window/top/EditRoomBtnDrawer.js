@@ -34,7 +34,7 @@ const EditRoomBtnDrawer = () => {
   };
 
   return (
-    <div>
+    <>
       <Button className="br-circle" size="sm" onClick={open}>
         <Icon icon="profile" size="2x" style={{ color: 'green' }} />
       </Button>
@@ -67,7 +67,7 @@ const EditRoomBtnDrawer = () => {
           </Button>
         </Drawer.Footer>
       </Drawer>
-    </div>
+    </>
   );
 };
 
